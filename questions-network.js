@@ -1,0 +1,379 @@
+/* =====================================================================
+   FACE-OFF: NETWORK+  —  QUESTION POOL
+   Exam: CompTIA Network+ N10-009
+   ---------------------------------------------------------------------
+   12 categories x 10 clues = 120 board questions, plus 30 Lightning
+   Final questions. Each category's clues run EASIEST first, HARDEST
+   last — that ordering becomes the 100 → 500 rows on the board.
+
+     q   = the question students see
+     a   = the answer (host screen only)
+     alt = other phrasings you'd accept (host hint, optional)
+     obj = N10-009 objective number
+
+   Coverage: every objective from 1.1 through 5.5.
+   ===================================================================== */
+
+window.FACEOFF_QUESTIONS = {
+  exam: "CompTIA Network+ (N10-009)",
+
+  categories: [
+
+  /* ============ 1 ============ */
+  { name: "OSI MODEL", obj: "1.1", clues: [
+    { q: "This is Layer 1 of the OSI model — cables, connectors, and raw bits on the wire.",
+      a: "Physical", alt: ["Layer 1"], obj: "1.1" },
+    { q: "A switch forwards traffic at this OSI layer, using this kind of address.",
+      a: "Layer 2 (Data Link), using MAC addresses", alt: ["Layer 2, MAC"], obj: "1.1" },
+    { q: "A router makes its forwarding decisions at this layer.",
+      a: "Layer 3 (Network)", alt: ["Layer 3"], obj: "1.1" },
+    { q: "TCP and UDP both operate at this layer.",
+      a: "Layer 4 (Transport)", alt: ["Layer 4"], obj: "1.1" },
+    { q: "This is Layer 7, where HTTP, DNS, and SMTP live.",
+      a: "Application", alt: ["Layer 7"], obj: "1.1" },
+    { q: "Name OSI Layers 5, 6, and 7 in order.",
+      a: "Session, Presentation, Application", obj: "1.1" },
+    { q: "Encryption and data formatting happen at this layer.",
+      a: "Presentation (Layer 6)", alt: ["Layer 6"], obj: "1.1" },
+    { q: "Name the protocol data unit at Layer 4, Layer 3, and Layer 2.",
+      a: "Segment (L4), Packet (L3), Frame (L2)", alt: ["Segment, packet, frame"], obj: "1.1" },
+    { q: "Explain the difference between a Layer 2 switch and a Layer 3 switch.",
+      a: "A Layer 2 switch only forwards by MAC; a Layer 3 switch can also route between VLANs using IP",
+      alt: ["L3 switch routes between VLANs"], obj: "1.1" },
+    { q: "A user can reach a server by IP but not by name. Name the OSI layer and the service at fault.",
+      a: "Layer 7 — DNS name resolution", alt: ["DNS, Layer 7"], obj: "1.1" }
+  ]},
+
+  /* ============ 2 ============ */
+  { name: "PORTS & PROTOCOLS", obj: "1.4", clues: [
+    { q: "HTTP uses this port.", a: "80", obj: "1.4" },
+    { q: "HTTPS uses this port.", a: "443", obj: "1.4" },
+    { q: "SSH uses this port.", a: "22", obj: "1.4" },
+    { q: "DNS uses this port — and name both transport protocols it can use.",
+      a: "53, over UDP (queries) and TCP (zone transfers / large responses)",
+      alt: ["53, UDP and TCP"], obj: "1.4" },
+    { q: "Name BOTH ports DHCP uses.", a: "67 (server) and 68 (client)", alt: ["67 and 68"], obj: "1.4" },
+    { q: "RDP uses this port.", a: "3389", obj: "1.4" },
+    { q: "SNMP uses these two ports — one for polling, one for traps.",
+      a: "161 (poll) and 162 (traps)", alt: ["161 and 162"], obj: "1.4" },
+    { q: "Name the ports for LDAP and its secure version.",
+      a: "389 (LDAP) and 636 (LDAPS)", alt: ["389 and 636"], obj: "1.4" },
+    { q: "Name the port for SMTP, and the port used for secure mail submission today.",
+      a: "25 for SMTP; 587 for submission (465 for implicit TLS)",
+      alt: ["25 and 587"], obj: "1.4" },
+    { q: "Give one sentence each on how TCP and UDP differ.",
+      a: "TCP is connection-oriented and reliable — it acknowledges and retransmits; UDP is connectionless with no acknowledgement, so it's faster but unreliable",
+      alt: ["TCP reliable with ACKs, UDP fast no ACKs"], obj: "1.4" }
+  ]},
+
+  /* ============ 3 ============ */
+  { name: "IPv4 & SUBNETTING", obj: "1.7", clues: [
+    { q: "This is the default subnet mask for a Class C network.",
+      a: "255.255.255.0 (/24)", alt: ["/24"], obj: "1.7" },
+    { q: "This is the IPv4 loopback address.", a: "127.0.0.1", obj: "1.7" },
+    { q: "Name all three private IPv4 ranges.",
+      a: "10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16", obj: "1.7" },
+    { q: "A host shows an address starting 169.254. Name the range and what it means.",
+      a: "APIPA (169.254.0.0/16) — the DHCP server couldn't be reached",
+      alt: ["APIPA, DHCP failed"], obj: "1.7" },
+    { q: "How many USABLE host addresses are in a /24?", a: "254", obj: "1.7" },
+    { q: "Give the CIDR notation for 255.255.255.240, and the usable hosts per subnet.",
+      a: "/28, with 14 usable hosts", alt: ["/28 and 14"], obj: "1.7" },
+    { q: "You borrow 2 bits from a /24. How many subnets do you get, and how many usable hosts each?",
+      a: "4 subnets of 62 usable hosts (a /26)", alt: ["4 subnets, 62 hosts"], obj: "1.7" },
+    { q: "A host is 172.16.5.130 /25. Give its network address and its broadcast address.",
+      a: "Network 172.16.5.128, broadcast 172.16.5.255", obj: "1.7" },
+    { q: "Explain what NAT does and the problem it was created to solve.",
+      a: "It translates private addresses to a public one — created to conserve the limited IPv4 address space",
+      alt: ["Private to public, saves IPv4"], obj: "1.7" },
+    { q: "You need 6 subnets from 192.168.1.0/24 with at least 25 hosts each. Give the mask and why it fits.",
+      a: "/27 (255.255.255.224) — 8 subnets of 30 usable hosts",
+      alt: ["/27"], obj: "1.7" }
+  ]},
+
+  /* ============ 4 ============ */
+  { name: "CABLES & MEDIA", obj: "1.5", clues: [
+    { q: "This connector terminates a copper Ethernet patch cable.",
+      a: "RJ45", alt: ["8P8C"], obj: "1.5" },
+    { q: "Give the maximum speed and distance for Cat 5e.",
+      a: "1 Gbps at 100 meters", alt: ["1 Gbps, 100m"], obj: "1.5" },
+    { q: "Name the two types of fiber, and which one goes farther.",
+      a: "Single-mode and multimode — single-mode goes much farther",
+      alt: ["SMF and MMF, single-mode farther"], obj: "1.5" },
+    { q: "Name any two fiber connector types.",
+      a: "LC, SC, ST, or MTP/MPO (any two)", obj: "1.5" },
+    { q: "Explain the difference between Cat 6 and Cat 6a for 10 Gbps.",
+      a: "Cat 6 does 10 Gbps only to ~55 m; Cat 6a does 10 Gbps to the full 100 m",
+      alt: ["Cat 6a runs 10G to 100m"], obj: "1.5" },
+    { q: "What actually differs between the T568A and T568B wiring standards?",
+      a: "The orange and green pairs swap positions", alt: ["Orange and green swap"], obj: "1.5" },
+    { q: "This cable type is required in air-handling spaces because of its fire-resistant jacket.",
+      a: "Plenum-rated cable", alt: ["Plenum"], obj: "1.5" },
+    { q: "Name the small hot-swappable module that lets a switch port take fiber, and one variant that does 40 Gbps.",
+      a: "A transceiver — SFP/SFP+ for 1/10G, QSFP for 40G",
+      alt: ["SFP; QSFP for 40G"], obj: "1.5" },
+    { q: "Explain what a DAC is and when you'd use one instead of fiber.",
+      a: "A direct attach copper cable with transceivers fixed on both ends — cheap for very short in-rack runs",
+      alt: ["Direct attach copper, short runs"], obj: "1.5" },
+    { q: "A 10GBASE-T run tests fine at 40 m but fails intermittently at 95 m on Cat 6. Explain why and give the fix.",
+      a: "Cat 6 only supports 10G to about 55 m — beyond that you get attenuation and alien crosstalk. Re-run with Cat 6a or fiber",
+      alt: ["Cat 6 distance limit; use Cat 6a"], obj: "1.5" }
+  ]},
+
+  /* ============ 5 ============ */
+  { name: "ROUTING & SWITCHING", obj: "2.1, 2.2", clues: [
+    { q: "A switch builds and uses this table to forward frames.",
+      a: "The MAC address table", alt: ["CAM table"], obj: "2.2" },
+    { q: "This logically segments a switch so devices are separated into different broadcast domains.",
+      a: "VLAN", alt: ["Virtual LAN"], obj: "2.2" },
+    { q: "Explain the difference between an access port and a trunk port.",
+      a: "An access port carries one untagged VLAN to an end device; a trunk carries multiple tagged VLANs between switches",
+      alt: ["Access = one VLAN, trunk = many tagged"], obj: "2.2" },
+    { q: "This protocol prevents switching loops by blocking redundant paths.",
+      a: "Spanning Tree Protocol (STP)", alt: ["STP", "802.1D"], obj: "2.2" },
+    { q: "Give the notation for a default route.", a: "0.0.0.0/0", obj: "2.1" },
+    { q: "Explain the difference between static and dynamic routing.",
+      a: "Static routes are entered by hand and never change; dynamic routing protocols learn and adapt routes automatically",
+      alt: ["Manual vs learned"], obj: "2.1" },
+    { q: "Name the tagging standard used on a trunk, and what an untagged VLAN on a trunk is called.",
+      a: "802.1Q; the untagged one is the native VLAN", alt: ["802.1Q, native VLAN"], obj: "2.2" },
+    { q: "Classify OSPF and BGP: what type is each, and where is each used?",
+      a: "OSPF is a link-state interior gateway protocol for inside an organization; BGP is a path-vector exterior protocol that routes between autonomous systems on the internet",
+      alt: ["OSPF link-state IGP, BGP path-vector EGP"], obj: "2.1" },
+    { q: "Two protocols offer a route to the same network. Name the value that decides which one the router installs.",
+      a: "Administrative distance", obj: "2.1" },
+    { q: "Name the protocol that bundles several physical links into one logical link, and one reason to do it.",
+      a: "LACP (link aggregation) — more bandwidth and link redundancy",
+      alt: ["LACP", "Port aggregation"], obj: "2.2" }
+  ]},
+
+  /* ============ 6 ============ */
+  { name: "WIRELESS", obj: "2.3", clues: [
+    { q: "This is the network name a wireless client sees and connects to.",
+      a: "SSID", obj: "2.3" },
+    { q: "Name the three non-overlapping channels in the 2.4 GHz band.",
+      a: "1, 6, and 11", obj: "2.3" },
+    { q: "802.11ac operates in this band only.", a: "5 GHz", obj: "2.3" },
+    { q: "Give the 802.11 designation for Wi-Fi 6.", a: "802.11ax", obj: "2.3" },
+    { q: "Wi-Fi 6E extends Wi-Fi 6 into this additional band.", a: "6 GHz", obj: "2.3" },
+    { q: "This is the strongest current wireless security standard — it replaces the 4-way handshake with SAE.",
+      a: "WPA3", obj: "2.3" },
+    { q: "Name what enterprise wireless uses so every user logs in with their own credentials.",
+      a: "802.1X with a RADIUS server", alt: ["WPA2/3-Enterprise, RADIUS"], obj: "2.3" },
+    { q: "Explain the trade-off of using a wider channel like 80 MHz instead of 20 MHz.",
+      a: "More throughput per client, but fewer non-overlapping channels and more interference",
+      alt: ["Faster but more interference"], obj: "2.3" },
+    { q: "Name the survey you run before a wireless deployment and the visual it produces.",
+      a: "A site survey, producing a heat map", obj: "2.3" },
+    { q: "Clients in a warehouse keep clinging to a distant AP instead of switching to a closer one. Name the problem and two fixes.",
+      a: "Sticky clients / poor roaming — lower the AP transmit power, adjust the minimum data rate, or enable 802.11k/v/r fast roaming",
+      alt: ["Sticky client; reduce power, enable fast roaming"], obj: "2.3" }
+  ]},
+
+  /* ============ 7 ============ */
+  { name: "NETWORK SERVICES", obj: "1.2, 3.4", clues: [
+    { q: "This service hands out IP addresses, masks, gateways, and DNS servers automatically.",
+      a: "DHCP", obj: "1.2" },
+    { q: "This DNS record maps a hostname to an IPv4 address — and this one maps to IPv6.",
+      a: "A record (IPv4) and AAAA record (IPv6)", alt: ["A and AAAA"], obj: "1.2" },
+    { q: "This DNS record type directs email for a domain to the right mail server.",
+      a: "MX record", obj: "1.2" },
+    { q: "This service keeps clocks in sync — critical for logs, certificates, and Kerberos.",
+      a: "NTP", alt: ["Network Time Protocol"], obj: "1.2" },
+    { q: "This appliance spreads incoming connections across a pool of servers.",
+      a: "Load balancer", obj: "1.2" },
+    { q: "Explain the difference between a forward proxy and a reverse proxy.",
+      a: "A forward proxy sits in front of clients going out; a reverse proxy sits in front of servers handling traffic coming in",
+      alt: ["Forward = clients out, reverse = servers in"], obj: "1.2" },
+    { q: "Explain the difference between a stateless and a stateful firewall.",
+      a: "Stateless checks each packet against rules in isolation; stateful tracks the whole connection and allows return traffic automatically",
+      alt: ["Stateful tracks connections"], obj: "1.2" },
+    { q: "Explain the difference between an IDS and an IPS.",
+      a: "An IDS detects and alerts only; an IPS sits inline and can block the traffic",
+      alt: ["IDS alerts, IPS blocks"], obj: "1.2" },
+    { q: "Clients on a VLAN with no local DHCP server get no address. Name the feature that fixes it.",
+      a: "A DHCP relay / IP helper address", alt: ["IP helper", "DHCP relay"], obj: "3.4" },
+    { q: "Name the DNS record used for reverse lookups, and the record type that carries SPF and DKIM data.",
+      a: "PTR for reverse lookups; TXT records carry SPF and DKIM", alt: ["PTR and TXT"], obj: "1.2" }
+  ]},
+
+  /* ============ 8 ============ */
+  { name: "CLOUD & TOPOLOGIES", obj: "1.3, 1.6, 1.8", clues: [
+    { q: "Give the terms for a network covering one building versus one covering a large geographic area.",
+      a: "LAN and WAN", obj: "1.6" },
+    { q: "In this topology every device connects back to one central switch.",
+      a: "Star", alt: ["Star/hub-and-spoke"], obj: "1.6" },
+    { q: "In this cloud model you rent virtual machines and manage the OS and apps yourself.",
+      a: "IaaS", alt: ["Infrastructure as a Service"], obj: "1.3" },
+    { q: "Name the three layers of the traditional three-tier network architecture.",
+      a: "Core, Distribution (Aggregation), and Access", obj: "1.6" },
+    { q: "Name the data center design where every leaf switch connects to every spine switch, and its main benefit.",
+      a: "Spine and leaf — predictable, low-latency east-west traffic; every leaf is one hop from any other",
+      alt: ["Spine and leaf"], obj: "1.6" },
+    { q: "Sort these by who manages what: SaaS, PaaS, IaaS — from most customer-managed to least.",
+      a: "IaaS (you manage most), then PaaS, then SaaS (provider manages nearly everything)",
+      alt: ["IaaS, PaaS, SaaS"], obj: "1.3" },
+    { q: "Software-Defined Networking separates these two planes.",
+      a: "The control plane from the data (forwarding) plane", alt: ["Control from data plane"], obj: "1.8" },
+    { q: "Name the private, dedicated link into a cloud provider that bypasses the public internet.",
+      a: "A direct connect / private cloud interconnect", alt: ["Direct Connect", "ExpressRoute"], obj: "1.3" },
+    { q: "Name the practice of defining network and server configuration in version-controlled files rather than by hand.",
+      a: "Infrastructure as Code (IaC)", alt: ["IaC"], obj: "1.8" },
+    { q: "Explain what Zero Trust changes about the traditional perimeter security model.",
+      a: "Nothing is trusted by location — every user, device, and request is authenticated and authorized regardless of whether it's inside the network",
+      alt: ["Never trust, always verify"], obj: "1.8" }
+  ]},
+
+  /* ============ 9 ============ */
+  { name: "OPERATIONS & DOCS", obj: "3.1, 3.2, 3.3, 3.5", clues: [
+    { q: "This document defines the uptime and response times a provider commits to.",
+      a: "SLA", alt: ["Service Level Agreement"], obj: "3.1" },
+    { q: "Explain the difference between a physical and a logical network diagram.",
+      a: "Physical shows the actual cabling, racks, and ports; logical shows IP subnets, VLANs, and traffic flow",
+      alt: ["Physical = cabling, logical = IP/VLAN"], obj: "3.1" },
+    { q: "This protocol polls devices for health data and can send unsolicited alerts called traps.",
+      a: "SNMP", obj: "3.2" },
+    { q: "In syslog severity levels, this is level 0 — the most severe.",
+      a: "Emergency", alt: ["Emerg"], obj: "3.2" },
+    { q: "Explain why you capture a network baseline.",
+      a: "So you know what normal looks like — you can't spot abnormal performance without it",
+      alt: ["To compare against normal"], obj: "3.2" },
+    { q: "Define RTO and RPO in one sentence each.",
+      a: "RTO is how fast you must be back up; RPO is how much data you can afford to lose",
+      alt: ["RTO = time to recover, RPO = data loss tolerance"], obj: "3.3" },
+    { q: "Explain the difference between active-active and active-passive high availability.",
+      a: "Active-active runs both nodes serving traffic at once; active-passive keeps a standby that takes over on failure",
+      alt: ["Both live vs standby"], obj: "3.3" },
+    { q: "Rank cold, warm, and hot sites from fastest recovery to slowest.",
+      a: "Hot (near-instant), warm (hours), cold (days — just space and power)",
+      alt: ["Hot, warm, cold"], obj: "3.3" },
+    { q: "Name the two things a change request must include before approval, beyond the change itself.",
+      a: "An impact/risk assessment and a rollback (backout) plan",
+      alt: ["Impact analysis and rollback plan"], obj: "3.1" },
+    { q: "You need to know WHICH hosts are consuming bandwidth, not just how much. Name the right tool and why.",
+      a: "NetFlow / sFlow — it reports conversations by source, destination, and port, which SNMP's interface counters can't",
+      alt: ["NetFlow"], obj: "3.2" }
+  ]},
+
+  /* ============ 10 ============ */
+  { name: "NETWORK SECURITY", obj: "4.1, 4.3", clues: [
+    { q: "Name all three parts of the CIA triad.",
+      a: "Confidentiality, Integrity, Availability", obj: "4.1" },
+    { q: "Requiring a password plus a code from a phone is an example of this.",
+      a: "Multifactor authentication (MFA)", alt: ["MFA", "2FA"], obj: "4.1" },
+    { q: "This principle says users and devices get only the access they need to do their job.",
+      a: "Principle of least privilege", alt: ["Least privilege"], obj: "4.1" },
+    { q: "This switch feature limits which MAC addresses may use a port, and can shut the port on violation.",
+      a: "Port security", obj: "4.3" },
+    { q: "This standard makes a device authenticate before the switch port will pass any traffic.",
+      a: "802.1X", alt: ["Port-based NAC"], obj: "4.3" },
+    { q: "Name the practice of layering multiple independent controls so no single failure exposes the network.",
+      a: "Defense in depth", alt: ["Layered security"], obj: "4.1" },
+    { q: "Name the two switch features that stop rogue DHCP servers and ARP poisoning.",
+      a: "DHCP snooping and Dynamic ARP Inspection (DAI)",
+      alt: ["DHCP snooping and DAI"], obj: "4.3" },
+    { q: "Name the isolated network segment where public-facing servers are placed, away from the internal LAN.",
+      a: "A screened subnet (DMZ)", alt: ["DMZ", "Screened subnet"], obj: "4.1" },
+    { q: "Name the decoy system deployed to attract and study attackers.",
+      a: "A honeypot (a honeynet if it's a whole network)", alt: ["Honeypot"], obj: "4.1" },
+    { q: "Name three things you should change or disable when hardening a brand-new switch.",
+      a: "Change the default credentials, disable unused ports, disable insecure management like Telnet/HTTP, and shut off unneeded services (any three)",
+      alt: ["Default creds, unused ports, Telnet"], obj: "4.3" }
+  ]},
+
+  /* ============ 11 ============ */
+  { name: "ATTACKS & THREATS", obj: "4.2", clues: [
+    { q: "This attack uses fraudulent email to trick users into giving up credentials.",
+      a: "Phishing", obj: "4.2" },
+    { q: "This attack floods a target with traffic from many compromised machines at once.",
+      a: "DDoS", alt: ["Distributed Denial of Service"], obj: "4.2" },
+    { q: "This attack poisons a LAN's address mappings so traffic is redirected through the attacker.",
+      a: "ARP spoofing / ARP poisoning", alt: ["ARP poisoning"], obj: "4.2" },
+    { q: "An attacker secretly relays traffic between two parties who think they're talking directly. Name the attack.",
+      a: "On-path attack", alt: ["Man-in-the-middle", "MITM"], obj: "4.2" },
+    { q: "This attack floods a switch's MAC table so it starts flooding frames out every port.",
+      a: "MAC flooding", alt: ["CAM table overflow"], obj: "4.2" },
+    { q: "Name the attack that gets a frame onto a VLAN it shouldn't reach, and one way to stop it.",
+      a: "VLAN hopping — stop it by disabling DTP/auto-trunking and changing the native VLAN",
+      alt: ["VLAN hopping; disable auto-trunk"], obj: "4.2" },
+    { q: "An attacker sets up an access point with the same SSID as the corporate network. Name it.",
+      a: "An evil twin", alt: ["Evil twin / rogue AP"], obj: "4.2" },
+    { q: "Explain how a DNS poisoning attack harms users even though the website itself is untouched.",
+      a: "It corrupts the name-to-IP mapping, so the correct hostname resolves to the attacker's server",
+      alt: ["Bad DNS mapping sends users to attacker"], obj: "4.2" },
+    { q: "Explain what makes a zero-day different from an attack on an unpatched system.",
+      a: "A zero-day exploits a flaw with no vendor patch available yet; an unpatched system had a fix that wasn't applied",
+      alt: ["No patch exists vs not applied"], obj: "4.2" },
+    { q: "Name the attack that exhausts a DHCP scope, and the two features that mitigate it.",
+      a: "DHCP starvation — mitigate with port security and DHCP snooping",
+      alt: ["DHCP starvation"], obj: "4.2" }
+  ]},
+
+  /* ============ 12 ============ */
+  { name: "TROUBLESHOOTING", obj: "5.1-5.5", clues: [
+    { q: "Name step one of CompTIA's network troubleshooting methodology.",
+      a: "Identify the problem", obj: "5.1" },
+    { q: "This command tests basic reachability with ICMP echo requests.",
+      a: "ping", obj: "5.5" },
+    { q: "This command shows every hop between you and a remote destination.",
+      a: "tracert / traceroute", alt: ["tracert", "traceroute"], obj: "5.5" },
+    { q: "This command queries DNS directly to resolve a name.",
+      a: "nslookup (or dig)", alt: ["nslookup", "dig"], obj: "5.5" },
+    { q: "A workstation has a 169.254 address. Name the cause and the first thing to check.",
+      a: "DHCP failed — check the link, then the DHCP server or relay",
+      alt: ["DHCP failure"], obj: "5.2" },
+    { q: "Users reach sites by IP but not by name. Name the fault and the command that confirms it.",
+      a: "DNS resolution — confirm with nslookup or dig", alt: ["DNS; nslookup"], obj: "5.2" },
+    { q: "Name the tool that finds a specific cable in a bundle, and the tool that verifies its wiring.",
+      a: "A toner probe to find it; a cable tester (or certifier) to verify wiring",
+      alt: ["Toner probe and cable tester"], obj: "5.5" },
+    { q: "Name the symptom of a duplex mismatch and the two counters that give it away.",
+      a: "Very slow throughput on a link that's technically up — late collisions on one side, FCS/CRC errors on the other",
+      alt: ["Slow link; late collisions and CRC errors"], obj: "5.2" },
+    { q: "Users on one floor report slow wireless every afternoon. Name three things to check.",
+      a: "Channel overlap/interference, co-channel contention from too many APs, client density, and signal strength or AP placement (any three)",
+      alt: ["Interference, channel overlap, density"], obj: "5.4" },
+    { q: "Give steps 5 and 6 of the troubleshooting methodology, in order.",
+      a: "5) Verify full system functionality and implement preventive measures  6) Document findings, actions, and outcomes",
+      alt: ["Verify, then document"], obj: "5.1" }
+  ]}
+
+  ],
+
+  /* =====================================================================
+     LIGHTNING FINAL — head to head between the last two teams.
+     Short questions, short answers. Fastest buzz wins.
+     ===================================================================== */
+  lightning: [
+    { q: "What port does HTTPS use?", a: "443", obj: "1.4" },
+    { q: "What port does SSH use?", a: "22", obj: "1.4" },
+    { q: "What OSI layer does a router work at?", a: "Layer 3", obj: "1.1" },
+    { q: "What OSI layer does a switch work at?", a: "Layer 2", obj: "1.1" },
+    { q: "How many usable hosts in a /24?", a: "254", obj: "1.7" },
+    { q: "What's the IPv4 loopback address?", a: "127.0.0.1", obj: "1.7" },
+    { q: "Which three 2.4 GHz channels don't overlap?", a: "1, 6, and 11", obj: "2.3" },
+    { q: "What does an address starting 169.254 mean?", a: "DHCP failed — APIPA", alt: ["APIPA"], obj: "1.7" },
+    { q: "What protocol prevents switching loops?", a: "STP", obj: "2.2" },
+    { q: "What port does DNS use?", a: "53", obj: "1.4" },
+    { q: "What's the 802.11 name for Wi-Fi 6?", a: "802.11ax", obj: "2.3" },
+    { q: "What does VLAN stand for?", a: "Virtual Local Area Network", obj: "2.2" },
+    { q: "What's the notation for a default route?", a: "0.0.0.0/0", obj: "2.1" },
+    { q: "Which is reliable, TCP or UDP?", a: "TCP", obj: "1.4" },
+    { q: "What port does RDP use?", a: "3389", obj: "1.4" },
+    { q: "What does a load balancer do?", a: "Spreads traffic across multiple servers", obj: "1.2" },
+    { q: "What's the strongest current Wi-Fi security standard?", a: "WPA3", obj: "2.3" },
+    { q: "Which DNS record points to a mail server?", a: "MX", obj: "1.2" },
+    { q: "What's the maximum run length for copper Ethernet?", a: "100 meters", obj: "1.5" },
+    { q: "What are the three parts of the CIA triad?", a: "Confidentiality, Integrity, Availability", obj: "4.1" },
+    { q: "What does NAT translate?", a: "Private addresses to public ones", obj: "1.7" },
+    { q: "What's the tagging standard for a trunk port?", a: "802.1Q", obj: "2.2" },
+    { q: "What's step one of the troubleshooting methodology?", a: "Identify the problem", obj: "5.1" },
+    { q: "Which command traces every hop to a destination?", a: "tracert / traceroute", obj: "5.5" },
+    { q: "Which routing protocol runs the internet?", a: "BGP", obj: "2.1" },
+    { q: "What connector goes on a copper Ethernet cable?", a: "RJ45", obj: "1.5" },
+    { q: "IDS or IPS — which one blocks traffic?", a: "IPS", obj: "1.2" },
+    { q: "What does an SLA define?", a: "Guaranteed uptime and response times", obj: "3.1" },
+    { q: "What band does Wi-Fi 6E add?", a: "6 GHz", obj: "2.3" },
+    { q: "What does DHCP hand out?", a: "IP addresses and configuration", obj: "1.2" }
+  ]
+};
