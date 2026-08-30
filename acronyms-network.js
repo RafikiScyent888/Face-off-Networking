@@ -476,7 +476,7 @@ window.FACEOFF_ACRONYMS = {
     { name: "RELIABILITY METRICS",
       items: [
       { ac: "MTBF",
-        ex: "Mean Time Between Failures",
+        ex: "Mean Time Between Failures", 
         df: "Average time before failure." },
       { ac: "MTTR",
         ex: "Mean Time To Repair",
