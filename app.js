@@ -428,13 +428,17 @@ function poolFingerprint() {
   return POOL.length + ':' + POOL.reduce(function (n, c) { return n + c.clues.length; }, 0);
 }
 function newDeck() {
-  var d = { used: {}, cursor: 0, drawn: 0, fp: poolFingerprint() };
+  var d = { used: {}, cursor: 0, drawn: 0, lused: {}, fp: poolFingerprint() };
   reshuffleCategories(d);
   return d;
 }
 function loadDeck(saved) {
   if (!saved || saved.fp !== poolFingerprint() || !saved.used) return newDeck();
   saved.drawn = saved.drawn || Object.keys(saved.used).length;
+  /* Decks saved before the Lightning Final had a memory get one now, rather
+     than being thrown away — a host mid-way through a pool should not lose
+     it to an update. */
+  saved.lused = saved.lused || {};
   if (!saved.order || saved.order.length !== POOL.length) reshuffleCategories(saved);
   return saved;
 }
@@ -723,6 +727,35 @@ function drawAcroLightning(deck, n) {
     var c = acroClue(x.it, 2);
     return { q: c.q, a: c.a, alt: c.alt, obj: '' };
   });
+}
+
+/* THE LIGHTNING FINAL, WITH A MEMORY.
+
+   The board deck has remembered its used clues across tournaments from the
+   start; the Lightning Final did not. It reshuffled the whole pool every
+   game, so a class playing back to back met the same championship questions
+   two and three times while the board in front of them never repeated.
+
+   Same rule as everywhere else: take what has not been used, mark it, and
+   only start again once the pool is genuinely spent. Reset pool clears this
+   along with the board clues, because it is the same pool. */
+function drawLightning(deck, n) {
+  if (!LIGHTNING.length) return [];
+  deck.lused = deck.lused || {};
+  var free = [];
+  for (var i = 0; i < LIGHTNING.length; i++) if (!deck.lused[i]) free.push(i);
+  if (free.length < n) {
+    deck.lused = {};
+    free = LIGHTNING.map(function (_, i) { return i; });
+  }
+  var take = shuffled(free).slice(0, n);
+  take.forEach(function (i) { deck.lused[i] = true; });
+  return take.map(function (i) { return LIGHTNING[i]; });
+}
+
+function lightningLeft(deck) {
+  if (!LIGHTNING.length) return 0;
+  return LIGHTNING.length - Object.keys((deck && deck.lused) || {}).length;
 }
 
 function placeDailyDoubles(board, count) {
@@ -1420,7 +1453,7 @@ function Host(forcedCode) {
        bank, because the mixed board has already had its acronym columns. */
     S.tour.lq = (S.settings.gameStyle === 'acronyms' && ACRO_POOL.length)
       ? drawAcroLightning(S.adeck, Math.max(S.tour.lqTotal, 1))
-      : shuffled(LIGHTNING);
+      : drawLightning(S.deck, Math.max(S.tour.lqTotal, 1));
     persist();                    /* the acronym final spends pool too */
     S.tour.lqAsked = 0;
     S.tour.board = [];
@@ -2045,9 +2078,14 @@ function Host(forcedCode) {
         return '<div class="notice" style="margin-top:10px">' +
           '<div class="row" style="gap:10px">' +
             '<div style="flex:1;min-width:200px"><b>Question pool:</b> ' + fmt(all - used) +
-              ' of ' + fmt(all) + ' clues still unused (' + (100 - pct) + '%).<br>' +
+              ' of ' + fmt(all) + ' clues still unused (' + (100 - pct) + '%)' +
+              (LIGHTNING.length
+                ? ', and ' + fmt(lightningLeft(S.deck)) + ' of ' + fmt(LIGHTNING.length) +
+                  ' Lightning Final questions'
+                : '') + '.<br>' +
               '<span style="opacity:.75">Used clues carry over between tournaments, so back-to-back ' +
-              'games don\'t repeat. Reset when you want to start the whole pool over.</span></div>' +
+              'games don\'t repeat \u2014 the Lightning Final included. Reset when you want to start ' +
+              'the whole pool over.</span></div>' +
             '<button class="btn sm ghost" data-act="resetpool">Reset pool</button>' +
           '</div>' +
           '<div class="poolbar"><i style="width:' + pct + '%"></i></div>' +
