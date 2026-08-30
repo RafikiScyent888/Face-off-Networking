@@ -96,7 +96,7 @@ if small:
     out.append("   and are skipped on the largest boards. They still play on shorter")
     out.append("   boards and in the Lightning Final. Currently: %s." % ", ".join(small))
 out.append("   ===================================================================== */")
-out.append("")
+out.append("") 
 out.append("window.%s = {" % GLOBAL)
 out.append("  categories: [")
 for ci, c in enumerate(order):
