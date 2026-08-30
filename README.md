@@ -264,6 +264,19 @@ Cabling") and the host screen carries a note that the other reading exists.
 This is automatic: the builder finds any acronym with more than one
 expansion and marks it.
 
+### The Lightning Final remembers too
+
+It did not used to. The board deck has carried its used clues across
+tournaments from the start, but the Lightning Final reshuffled the whole
+pool every game — so a class playing two or three games in an afternoon met
+the same championship questions each time, while the board in front of them
+never repeated.
+
+It now works the same way as everything else: used final questions are
+remembered, carried between tournaments, and recycled only once the pool is
+genuinely spent. **Reset pool** clears them along with the board clues,
+because it is the same bank. Game settings shows how many are left.
+
 ### The acronym pool remembers, same as the question pool
 
 Used acronyms carry over between tournaments and survive a page reload, so
