@@ -216,6 +216,89 @@ definitions.
 That's enough for a **4-board tournament with zero repeats**. If a game ever
 runs the pool dry, it recycles rather than breaking.
 
+## Three kinds of game
+
+Open **⚙ Game settings** and pick under **What are we playing?**
+
+| Style | The board | The Lightning Final |
+|---|---|---|
+| **Normal** | The Network+ question bank, as always | Question bank |
+| **Acronyms** | Every column is acronyms | Acronyms |
+| **Mixed** | Whole acronym columns sitting among normal ones | Question bank |
+
+All three work exactly the same in **Class vs Class** — the style and the
+class split are independent settings.
+
+### There is no difficulty ramp in an acronym
+
+The question bank is authored easiest-first, and that ordering *is* the
+100 → 500 climb down a column. Nothing equivalent exists for acronyms —
+nothing makes MAC a 100 and SD-WAN a 500. So on an acronym column the ramp
+is the **task**, not the item:
+
+| Row | What the team is asked | Example |
+|---|---|---|
+| Cheap | Expand the letters | "Expand this acronym: *TCP*" |
+| Middle | Name it from a description | "Reliable, ordered delivery — which acronym?" |
+| Dear | Say what it actually does | "*TCP* — what does it actually do?" |
+
+Same acronym, three difficulties. That is also why 135 acronyms go a long
+way: an acronym is only ever served **once** per pool cycle, but which of
+the three forms it arrives as depends on where it lands on the board.
+
+The Lightning Final uses the hardest form throughout — by the final,
+expanding letters is not a championship question.
+
+### Mixed boards
+
+Roughly a third of the columns are acronyms, never fewer than one and never
+the whole board. They are **shuffled in among the question columns**, not
+bolted onto the end, so a team cannot quietly steer around them.
+
+### Acronyms that mean two things
+
+Network+ has **STP** twice — Spanning Tree Protocol *and* Shielded Twisted
+Pair. Both belong in the game. But "expand STP" would then have two right
+answers, so the clue names the field it wants ("as used in Hardware &
+Cabling") and the host screen carries a note that the other reading exists.
+This is automatic: the builder finds any acronym with more than one
+expansion and marks it.
+
+### The acronym pool remembers, same as the question pool
+
+Used acronyms carry over between tournaments and survive a page reload, so
+back-to-back games don't repeat. **Acronyms and Mixed games share one
+memory** — an acronym seen on a mixed board won't come back in an acronym
+game either.
+
+Game settings shows how much is left and gives you a **Reset acronyms**
+button beside the existing **Reset pool**. The two are separate: resetting
+acronyms does not put already-seen questions back, and vice versa.
+
+The pool empties to within one board of exhaustion before it recycles. (A
+board needs 16 clues, so a remainder smaller than that can never be dealt —
+measured, it serves 128 of 135 before recycling.)
+
+## Editing the acronyms
+
+**Don't edit `acronyms-network.js` by hand.** It's generated from the
+Network-Acronyms repo, which is the source of truth:
+
+```
+python3 tools/build-acronyms.py \
+  ../network-acronyms/data/acronyms.json \
+  acronyms-network.js FACEOFF_ACRONYMS "NETWORK+" "CompTIA Network+ N10-009"
+```
+
+It reports how many acronyms and categories it wrote, which acronyms have
+more than one meaning, and which categories are too small to fill a five-row
+column. Categories with fewer than 5 entries can't fill the tallest boards
+and sit those out — they still play on shorter boards and in the Lightning
+Final.
+
+Editing the file by hand works until somebody regenerates it, at which point
+the edit is gone. Change the acronym repo instead and rebuild.
+
 ## Files
 
 | File | What it is |
@@ -223,6 +306,8 @@ runs the pool dry, it recycles rather than breaking.
 | `index.html` | The game — all markup and styling |
 | `app.js` | Game engine: host console, student device, networking |
 | `questions-network.js` | **The question bank — this is the file you'll edit** |
+| `acronyms-network.js` | The acronym bank — **generated**, see above |
+| `tools/build-acronyms.py` | Rebuilds `acronyms-network.js` from the acronym repo |
 | `firebase-config.js` | Paste your Firebase keys here to go live |
 | `qr.js` | Self-contained QR generator (no CDN, works offline) |
 | `demo.html` | Host + 2 student devices side by side, for testing alone |
